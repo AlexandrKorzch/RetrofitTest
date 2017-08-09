@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private void registration(final TextView textView) {
 
         User user = new User();
-        user.setName("Vasdfa1111 Petrosdfv");
-        user.setEmail("vasyasdf11111@gmail.com");
-        user.setPassword("pasw111111");
+        user.setName("Vasd4444 Petrosdfv");
+        user.setEmail("vasyasd444441@gmail.com");
+        user.setPassword("pasw144441");
 
         ApiManager.getInstance().getService().registration(user)
                 .subscribeOn(Schedulers.io())
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                updateUser(textView);
+                                deleteUser(textView);
                             }
                         }, 5000);
                     }
@@ -72,27 +72,19 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "call() called with: throwable = [" + throwable + "]");
                         textView.setText("Throwable - "+throwable.getMessage());
                     }
-                });;
+                });
     }
 
+    private void deleteUser(final TextView textView) {
 
-    private void updateUser(final TextView textView) {
-
-        User user = new User();
-        user.setName("Vasdfa2222 Petrosdfv222");
-        user.setEmail("vasya222f@gmail.com");
-        user.setPassword("pasw222");
-
-        ApiManager.getInstance().getService().updateUser(TOKEN, ID, user)
+        ApiManager.getInstance().getService().deleteUser(TOKEN, ID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<RegisteredUser>() {
+                .subscribe(new Action1<Object>() {
                     @Override
-                    public void call(RegisteredUser model) {
-                        Log.d(TAG, "call: o - " + model.toString());
-                        textView.setText(model.toString());
-                        ID = model.getId();
-                        TOKEN = model.getToken();
+                    public void call(Object obj) {
+                        Log.d(TAG, "call: o - " + obj.toString());
+                        textView.setText(obj.toString());
                     }
                 }, new Action1<Throwable>() {
                     @Override
