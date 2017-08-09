@@ -1,9 +1,7 @@
 package com.korzh.user.retrofittest.retrofit;
 
 
-
 import java.util.concurrent.TimeUnit;
-
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -17,7 +15,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ApiManager {
 
-//    private static final String BASE_URL  = "https://maps.googleapis.com/";
     private static final String BASE_URL  = "https://testyapi.herokuapp.com/";
 
     private static ApiManager mApiManager;
