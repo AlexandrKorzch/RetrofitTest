@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by user on 03.08.17.
@@ -16,7 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiManager {
 
-    private static final String BASE_URL  = "https://maps.googleapis.com/";
+//    private static final String BASE_URL  = "https://maps.googleapis.com/";
+    private static final String BASE_URL  = "https://testyapi.herokuapp.com/";
 
     private static ApiManager mApiManager;
     private ApiInterface service;
@@ -41,6 +43,7 @@ public class ApiManager {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
