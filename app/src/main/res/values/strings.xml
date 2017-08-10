@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RetrofitTest</string>
+    <string name="registration">Registration</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>
