@@ -6,6 +6,8 @@ package com.korzh.user.retrofittest.model;
 
 public class User {
 
+    private String id;
+    private String token;
     private String email;
     private String name;
     private String password;
@@ -34,10 +36,28 @@ public class User {
         this.password = password;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
+                "id='" + id + '\'' +
+                ", token='" + token + '\'' +
+                ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';

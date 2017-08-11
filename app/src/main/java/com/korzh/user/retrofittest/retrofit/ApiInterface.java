@@ -1,14 +1,10 @@
 package com.korzh.user.retrofittest.retrofit;
 
 
-import com.korzh.user.retrofittest.model.RegisteredUser;
 import com.korzh.user.retrofittest.model.User;
 
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -18,10 +14,13 @@ import rx.Observable;
 public interface ApiInterface {
 
 
-    @POST("users")
-    Observable<RegisteredUser> registration(@Body User user);
+    @POST("register")
+    Observable<User> registration(@Body User user);
 
-    @DELETE("users/{id}")
-    Observable<Object> deleteUser(@Header("Authorization") String authHeader, @Path("id") String id);
+    @POST("login")
+    Observable<User> login(@Body User user);
+
+//    @DELETE("users/{id}")
+//    Observable<Object> deleteUser(@Header("Authorization") String authHeader, @Path("id") String id);
 
 }

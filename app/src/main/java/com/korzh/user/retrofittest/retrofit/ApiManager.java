@@ -2,7 +2,6 @@ package com.korzh.user.retrofittest.retrofit;
 
 
 import com.korzh.user.retrofittest.manager.SharedPrefManager;
-import com.korzh.user.retrofittest.model.RegisteredUser;
 import com.korzh.user.retrofittest.model.User;
 import com.korzh.user.retrofittest.util.MyLogInterceptor;
 import com.korzh.user.retrofittest.util.TokenAuthenticator;
@@ -63,36 +62,29 @@ public class ApiManager {
                 .build();
 
         service = retrofit.create(ApiInterface.class);
-
     }
 
-    public Observable<RegisteredUser> registration(User user) {
+    public Observable<User> registration(User user) {
         return service.registration(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(registeredUser -> {
-                    SharedPrefManager.setId(registeredUser.getId());
-                    SharedPrefManager.setToken(registeredUser.getToken());
-                });
-
+                .doOnNext(this::saveUserData);
     }
 
-//    public Observable<RegisteredUser> getAvatar(User user) {
-//        return service.getAvatar(user)
-//                .subscribeOn(Schedulers.io())
-//                .retryWhen((Func1<Observable<? extends Throwable>, Observable<?>>) observable ->
-//                        observable.flatMap((Func1<Throwable, Observable<?>>) throwable -> {
-//                            if (throwable instanceof HttpException) {
-//                                if (((HttpException) throwable).response().code() == 401) {
-//                                    return registration(user);
-//                                }
-//                            }
-//                            return Observable.error(throwable);
-//                        }))
-//                .observeOn(AndroidSchedulers.mainThread()).doOnNext((Action1<RegisteredUser>) registeredUser -> {
-//                    SharedPrefManager.setId(registeredUser.getId());
-//                    SharedPrefManager.setToken(registeredUser.getToken());
-//                });
-//
-//    }
+    public Observable<User> login(User user) {
+        return service.login(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(this::saveUserData);
+    }
+
+
+
+
+    private void saveUserData(User registeredUser) {
+        SharedPrefManager.setId(registeredUser.getId());
+        SharedPrefManager.setToken(registeredUser.getToken());
+    }
+
+
 }

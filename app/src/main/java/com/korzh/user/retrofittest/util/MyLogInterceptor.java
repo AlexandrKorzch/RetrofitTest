@@ -28,8 +28,6 @@ import okio.BufferedSource;
 
 public class MyLogInterceptor implements Interceptor {
 
-    String TAG = "Retrofit";
-
     private static final Charset UTF8 = Charset.forName("UTF-8");
     private final Logger logger;
     private volatile Level level;
@@ -78,9 +76,7 @@ public class MyLogInterceptor implements Interceptor {
             this.logger.log("...........................................................................................................");
             this.logger.log("");
             this.logger.log(requestStartMessage);
-//            LogToFileUtil.saveLogToFile(requestStartMessage);
             if(logHeaders) {
-
                 if(logBody && hasRequestBody) {
                     if(!this.bodyEncoded(request.headers())) {
                         Buffer var29 = new Buffer();
@@ -92,7 +88,6 @@ public class MyLogInterceptor implements Interceptor {
                         }
                         if(isPlaintext(var29)) {
                             this.logger.log(var29.readString(var30));
-//                            LogToFileUtil.saveLogToFile(var29.readString(var30));
                         }
                     }
                 }
@@ -106,7 +101,6 @@ public class MyLogInterceptor implements Interceptor {
             } catch (Exception var27) {
                 this.logger.log("");
                 this.logger.log("<-- HTTP FAILED: " + var27);
-//                LogToFileUtil.saveLogToFile("<-- HTTP FAILED: " + var27);
                 throw var27;
             }
 
@@ -116,7 +110,6 @@ public class MyLogInterceptor implements Interceptor {
             String bodySize = contentLength != -1L?contentLength + "-byte":"unknown-length";
             this.logger.log("");
             this.logger.log("<-- " + var31.code() + ' ' + var31.message() + ' ' + var31.request().url() + " (" + var33 + "ms" + (!logHeaders?", " + bodySize + " body":"") + ')');
-//            LogToFileUtil.saveLogToFile("<-- " + var31.code() + ' ' + var31.message() + ' ' + var31.request().url() + " (" + var33 + "ms" + (!logHeaders?", " + bodySize + " body":"") + ')');
 
             if(logHeaders) {
                 if(logBody && HttpHeaders.hasBody(var31)) {
@@ -143,13 +136,10 @@ public class MyLogInterceptor implements Interceptor {
                         if(contentLength != 0L) {
                             this.logger.log("");
                             this.logger.log(var35.clone().readString(charset));
-//                            LogToFileUtil.saveLogToFile(var35.clone().readString(charset));
                         }
-
                     }
                 }
             }
-
             return var31;
         }
     }
@@ -179,13 +169,11 @@ public class MyLogInterceptor implements Interceptor {
     }
 
     public interface Logger {
-
         String TAG = "MyRetrofitLog";
         Logger DEFAULT = message -> {
             Platform.get().log(4, message, null);
             Log.d(TAG, message);
         };
-
         void log(String var1);
     }
 

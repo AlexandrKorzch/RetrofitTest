@@ -2,7 +2,6 @@ package com.korzh.user.retrofittest.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.korzh.user.retrofittest.App;
 
@@ -11,8 +10,6 @@ import com.korzh.user.retrofittest.App;
  */
 
 public class SharedPrefManager {
-
-    private static final String TAG = "SharedPrefManager";
 
     private static final String  ID_KEY = "ID_KEY";
     private static final String  TOKEN_KEY = "TOKEN_KEY";
@@ -40,14 +37,12 @@ public class SharedPrefManager {
     }
 
     private static void saveValue(String key, String value){
-        Log.d(TAG, "saveValue() called with: key = [" + key + "], value = [" + value + "]");
         SharedPreferences.Editor editor = sSharedPref.edit();
         editor.putString(key, value);
         editor.apply();
     }
 
     private static String getValue(String key){
-        Log.d(TAG, "getValue() returned: " + sSharedPref.getString(key, ""));
         return sSharedPref.getString(key, "");
     }
 }
