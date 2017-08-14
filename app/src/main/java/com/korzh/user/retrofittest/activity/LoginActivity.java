@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.korzh.user.retrofittest.R;
 import com.korzh.user.retrofittest.model.User;
-import com.korzh.user.retrofittest.retrofit.ApiManager;
+import com.korzh.user.retrofittest.manager.ApiManager;
 
 import static com.korzh.user.retrofittest.util.Const.EMAIL_KEY;
 import static com.korzh.user.retrofittest.util.Const.PASSWORD_KEY;
@@ -44,7 +44,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(User user) {
         ApiManager.getInstance().login(user)
-                .subscribe(model -> openUploadAvatarActivity(LoginActivity.this)
+                .subscribe(model -> {
+                            openUploadAvatarActivity(LoginActivity.this);
+                            finish();
+                        }
                         , throwable -> Log.d(TAG, "call() called with: throwable = [" + throwable.getMessage() + "]"));
     }
 

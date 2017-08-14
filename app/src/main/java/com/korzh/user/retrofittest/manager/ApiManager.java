@@ -1,13 +1,14 @@
-package com.korzh.user.retrofittest.retrofit;
+package com.korzh.user.retrofittest.manager;
 
 
-import com.korzh.user.retrofittest.manager.SharedPrefManager;
 import com.korzh.user.retrofittest.model.User;
+import com.korzh.user.retrofittest.retrofit.ApiInterface;
 import com.korzh.user.retrofittest.util.MyLogInterceptor;
 import com.korzh.user.retrofittest.util.TokenAuthenticator;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -78,13 +79,14 @@ public class ApiManager {
                 .doOnNext(this::saveUserData);
     }
 
-
-
+    public Observable<Object> uploadAvatar(MultipartBody.Part image) {
+        return service.uploadAvatar(image)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     private void saveUserData(User registeredUser) {
         SharedPrefManager.setId(registeredUser.getId());
         SharedPrefManager.setToken(registeredUser.getToken());
     }
-
-
 }

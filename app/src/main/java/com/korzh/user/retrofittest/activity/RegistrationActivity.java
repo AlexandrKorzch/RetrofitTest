@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.korzh.user.retrofittest.R;
 import com.korzh.user.retrofittest.model.User;
-import com.korzh.user.retrofittest.retrofit.ApiManager;
+import com.korzh.user.retrofittest.manager.ApiManager;
 
 import static com.korzh.user.retrofittest.util.Const.EMAIL_KEY;
 import static com.korzh.user.retrofittest.util.Const.PASSWORD_KEY;
@@ -23,7 +23,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_registration);
 
         final EditText etName = (EditText) findViewById(R.id.et_name);
         final EditText etEmail = (EditText) findViewById(R.id.et_email);
@@ -41,10 +41,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void registration(User user) {
         ApiManager.getInstance().registration(user)
-                .subscribe(model -> openLoginActivity(RegistrationActivity.this, user)
-                , throwable -> Log.d(TAG, "call() called with: throwable = [" + throwable.getMessage() + "]"));
+                .subscribe(model -> {
+                            openLoginActivity(RegistrationActivity.this, user);
+                            finish();
+                        }
+                        , throwable -> Log.d(TAG, "call() called with: throwable = [" + throwable.getMessage() + "]"));
     }
-    
+
     public static void openLoginActivity(Context context, User user) {
         Intent intent = new Intent(context, LoginActivity.class);
         intent.putExtra(EMAIL_KEY, user.getEmail());

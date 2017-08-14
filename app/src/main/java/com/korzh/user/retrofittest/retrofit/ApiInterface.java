@@ -3,8 +3,11 @@ package com.korzh.user.retrofittest.retrofit;
 
 import com.korzh.user.retrofittest.model.User;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Observable;
 
 /**
@@ -20,7 +23,8 @@ public interface ApiInterface {
     @POST("login")
     Observable<User> login(@Body User user);
 
-//    @DELETE("users/{id}")
-//    Observable<Object> deleteUser(@Header("Authorization") String authHeader, @Path("id") String id);
+    @Multipart
+    @POST("users/avatar")
+    Observable<Object> uploadAvatar(@Part MultipartBody.Part image);
 
 }
