@@ -121,7 +121,7 @@ public class UploadAvatarActivity extends AppCompatActivity {
         progressDialog.setMessage("upload");
         progressDialog.show();
 
-        File file = new File(String.valueOf(mImageUri));
+        File file = new File(mImageUri.getPath());
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), requestFile);
 
