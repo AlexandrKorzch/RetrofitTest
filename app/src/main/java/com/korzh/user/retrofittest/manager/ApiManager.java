@@ -79,10 +79,11 @@ public class ApiManager {
                 .doOnNext(this::saveUserData);
     }
 
-    public Observable<Object> uploadAvatar(MultipartBody.Part image) {
+    public Observable<User> uploadAvatar(MultipartBody.Part image) {
         return service.uploadAvatar(image)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(this::saveUserData);
     }
 
     private void saveUserData(User registeredUser) {

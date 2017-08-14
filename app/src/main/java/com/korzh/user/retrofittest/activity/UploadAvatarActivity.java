@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gun0912.tedpicker.Config;
@@ -123,15 +123,17 @@ public class UploadAvatarActivity extends AppCompatActivity {
 
         File file = new File(mImageUri.getPath());
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), requestFile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
         ApiManager.getInstance().uploadAvatar(body).subscribe(
-                object -> {
-                    Log.d(TAG, "uploadImage: " + object.toString());
+                user -> {
+                    if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
+                        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                    }
                     progressDialog.dismiss();
                 }
                 , throwable -> {
-                    Log.d(TAG, "uploadImage: " + throwable.toString());
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 });
     }

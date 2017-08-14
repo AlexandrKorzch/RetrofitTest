@@ -25,6 +25,6 @@ public interface ApiInterface {
 
     @Multipart
     @POST("users/avatar")
-    Observable<Object> uploadAvatar(@Part MultipartBody.Part image);
+    Observable<User> uploadAvatar(@Part MultipartBody.Part image);
 
 }
