@@ -8,5 +8,6 @@ public class Const {
 
     public static final String EMAIL_KEY = "Name";
     public static final String PASSWORD_KEY = "Password";
+    public static final String URI_KEY = "Uri";
 
 }

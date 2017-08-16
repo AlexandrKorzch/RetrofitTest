@@ -3,10 +3,12 @@ package com.korzh.user.retrofittest.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,8 @@ import java.util.ArrayList;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+
+import static com.korzh.user.retrofittest.util.Const.URI_KEY;
 
 public class UploadAvatarActivity extends AppCompatActivity {
 
@@ -127,8 +131,9 @@ public class UploadAvatarActivity extends AppCompatActivity {
 
         ApiManager.getInstance().uploadAvatar(body).subscribe(
                 user -> {
-                    if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
+                    if (!TextUtils.isEmpty(user.getAvatar())) {
                         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                        startShowAvatarActivity(UploadAvatarActivity.this, user.getAvatar());
                     }
                     progressDialog.dismiss();
                 }
@@ -137,4 +142,11 @@ public class UploadAvatarActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                 });
     }
+
+    private static void startShowAvatarActivity(Context context, String url) {
+        Intent starter = new Intent(context, ShowAvatarActivity.class);
+        starter.putExtra(URI_KEY, url);
+        context.startActivity(starter);
+    }
+
 }
