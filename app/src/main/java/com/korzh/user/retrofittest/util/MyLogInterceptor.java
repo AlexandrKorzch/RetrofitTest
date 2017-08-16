@@ -57,6 +57,8 @@ public class MyLogInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
 
         Request request = chain.request();
+        this.logger.log("Authorization: "+request.header("Authorization"));
+
         Level level = this.level;
         if(level == Level.NONE) {
             return chain.proceed(request);

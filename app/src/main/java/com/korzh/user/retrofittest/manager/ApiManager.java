@@ -53,8 +53,8 @@ public class ApiManager {
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(logInterceptor)
                 .addInterceptor(tokenAuthInterceptor)
+                .addInterceptor(logInterceptor)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
