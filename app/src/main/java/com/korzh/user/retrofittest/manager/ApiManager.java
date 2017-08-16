@@ -1,6 +1,9 @@
 package com.korzh.user.retrofittest.manager;
 
 
+import android.support.v4.media.MediaBrowserCompat;
+
+import com.korzh.user.retrofittest.model.ResultModel;
 import com.korzh.user.retrofittest.model.User;
 import com.korzh.user.retrofittest.retrofit.ApiInterface;
 import com.korzh.user.retrofittest.util.MyLogInterceptor;
@@ -86,8 +89,17 @@ public class ApiManager {
                 .doOnNext(this::saveUserData);
     }
 
+    public Observable<ResultModel> deleteUser(String id) {
+        return service.deleteUser(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
     private void saveUserData(User registeredUser) {
         SharedPrefManager.setId(registeredUser.getId());
         SharedPrefManager.setToken(registeredUser.getToken());
     }
+
+
 }

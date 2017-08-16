@@ -1,13 +1,16 @@
 package com.korzh.user.retrofittest.retrofit;
 
 
+import com.korzh.user.retrofittest.model.ResultModel;
 import com.korzh.user.retrofittest.model.User;
 
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -26,5 +29,8 @@ public interface ApiInterface {
     @Multipart
     @POST("users/avatar")
     Observable<User> uploadAvatar(@Part MultipartBody.Part image);
+
+    @DELETE("users/{id}")
+    Observable<ResultModel> deleteUser(@Path("id") String id);
 
 }

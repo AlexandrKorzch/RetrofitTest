@@ -11,12 +11,12 @@ import com.korzh.user.retrofittest.App;
 
 public class SharedPrefManager {
 
-    private static final String  ID_KEY = "ID_KEY";
-    private static final String  TOKEN_KEY = "TOKEN_KEY";
+    private static final String ID_KEY = "ID_KEY";
+    private static final String TOKEN_KEY = "TOKEN_KEY";
 
     private static SharedPreferences sSharedPref;
 
-    public static void createSPManager(){
+    public static void createSPManager() {
         sSharedPref = App.sContext.getSharedPreferences("my_shared", Context.MODE_PRIVATE);
     }
 
@@ -36,13 +36,18 @@ public class SharedPrefManager {
         saveValue(TOKEN_KEY, token);
     }
 
-    private static void saveValue(String key, String value){
+    private static void saveValue(String key, String value) {
         SharedPreferences.Editor editor = sSharedPref.edit();
         editor.putString(key, value);
         editor.apply();
     }
 
-    private static String getValue(String key){
+    private static String getValue(String key) {
         return sSharedPref.getString(key, "");
+    }
+
+    public static void clear() {
+        setId("");
+        setToken("");
     }
 }

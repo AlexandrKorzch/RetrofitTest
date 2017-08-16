@@ -12,4 +12,14 @@
         android:layout_height="match_parent"
         fresco:placeholderImage="@drawable/ic_action_done"/>
 
+    <Button
+        android:id="@+id/btn_click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/delete_user"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

@@ -8,4 +8,5 @@
     <string name="custom_title">Take picture</string>
     <string name="pick_image">Pick image</string>
     <string name="upload_avatar">Upload Avatar</string>
+    <string name="delete_user">DELETE USER</string>
 </resources>
